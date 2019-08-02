@@ -38,4 +38,6 @@ class Solution:
 
 test = Solution()
 
-print(test.romanToInt("XXVII"))
+user_input = input("Enter roman number : ")
+
+print(test.romanToInt(user_input))
