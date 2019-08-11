@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for
+from flask import Flask, request, url_for, render_template
 
 class Solution:
     def countAndSay(self, n):
@@ -50,24 +50,15 @@ class Solution:
 
 app = Flask(__name__)
 
-@app.route("/count_and_say", methods = ["GET", "POST"])
+@app.route("/")
+def count_and_say_form():
+    return render_template('my-form.html')
+
+@app.route("/", methods = ['POST'])
 def count_and_say():
 
-    if request.method == "GET":
+    sequence_number = int(request.form['sequence_number'])
+    test1 = Solution()
+    return """<html><body><pre>"""+test1.countAndSay(sequence_number)+"""</pre></body></html>"""
 
-        #if request.form['submit_button'] == "Submit":
-
-            #sequence_number = request.form["sequence_number"]
-            req = request.form
-            test1 = Solution()
-            return """<html><body><pre>"""+test1.countAndSay(4)+"""</pre></body></html>"""
-
-@app.route("/")
-def index():
-
-    return """<form action="""+url_for("count_and_say")+""" method="GET">
-            Enter number of count-and-say sequence: <input type="text" name="sequence_number"><br>
-            <input type="submit" name="submit_button" value="Submit">
-            </form>"""
-
-app.run(host="172.30.20.132", port="8000")
+app.run(host="127.0.0.1", port="8000", debug=True)
