@@ -1,22 +1,38 @@
+import time
+
+start = time.time()
+
 class Solution:
     def maxSubArray(self, nums):
 
-        sum = nums[0]
-        i = 0
-        j = 0
-        sum_tmp = nums[0]
+        if not nums:
 
-        for i in range(len(nums)):
+            return None
 
-            for j in range(i+1, len(nums)):
+        if len(nums) == 1:
 
-                sum_tmp += nums[j]
+            return nums[0]
 
-                if sum_tmp > sum:
+        else:
 
-                    sum = sum_tmp
+            sum_tmp = 0
+            sum_max = float("-inf")
 
-        return sum
+            for i in nums:
+
+                if sum_tmp<=0:
+
+                    sum_tmp = i
+
+                else:
+
+                    sum_tmp += i
+
+                if sum_tmp > sum_max:
+
+                    sum_max = sum_tmp
+
+            return sum_max
 
 def main():
     pass
@@ -24,6 +40,10 @@ def main():
 if __name__ == '__main__':
     main()
 
-    list1 = [-2, 1, -3, 4, -1, 2, 1, -5 , 4]
+    list1 = [-2,1,-3,4,-1,2,1,-5,4]
     test1 = Solution()
     print(test1.maxSubArray(list1))
+
+end = time.time()
+
+print(end - start)
